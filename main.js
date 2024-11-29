@@ -1,5 +1,5 @@
 (function(){
-    const search = document.getElementById('Search');
+    const search = document.getElementById('search');
     const profile = document.getElementById('profile');
     const url = 'https://api.github.com/users'; // end point
     const cliente_id = '9d71a8c4106f4ea74ef9';
@@ -30,7 +30,8 @@
         profile.innerHTML = `
         <div class="row">
             <div class="col-md-4">
-                <div class="card mt-3" style="width: 18em;">
+                <div class="card mt-3" style="width: 18rem;">
+                    <img src="${user.avatar_url}" class="card-img-top">
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">Repositórios: <span class="badge badge-success">${user.public_repos}</span></li>
                         <li class="list-group-item">Seguidores: <span class="badge badge-primary">${user.followers}</span></li>
@@ -39,11 +40,12 @@
                     <div class="card-body">
                         <a href="${user.html_url}" target="_blank" class="btn btn-warning btn-block">Ver Perfil</a>
                     </div>
-                    <div class="col-md-8">
-                        <div class="repos"></div>
                 </div>
             </div>
-        `;
+            <div class="col-md-8">
+                <div id="repos"></div>
+            </div>
+        </div>`;
     }
 
     function showRepos(repos){
@@ -53,16 +55,17 @@
             output += `
             <div class="card card-body mt-2">
                 <div class="row">
-                    <div class="col-md-6"><a href="${repo.html_url}" target="_blank">${repo.name}</a></div>
-                    <div class="col-md-6">
-                        <span class="badge badge-primary">Stars: ${repo.stargazers_count}</span>    
-                        <span class="badge badge-primary">Watch: ${repo.watchers_count}</span>    
-                        <span class="badge badge-primary">Forks: ${repo.forks_count}</span>    
-                    </div>
+                    <div class="col-md-6"><a href="${repo.html_url}" target="_black">${repo.name}</a></div>
+                        <div class="col-md-6">
+                            <span class="badge badge-primary">Stars: ${repo.stargazers_count}</span>
+                            <span class="badge badge-success">Watch: ${repo.watchers_count}</span>
+                            <span class="badge badge-warning">Forks: ${repo.forks_count}</span>
+                        </div>
                 </div>
-            </div>
-            `
-        })
+            </div>`;
+        });
+
+        document.getElementById('repos').innerHTML = output;
     }
 
     search.addEventListener('keyup', e => {
